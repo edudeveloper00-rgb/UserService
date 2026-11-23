@@ -1,0 +1,26 @@
+
+-- ==========================================
+-- V1: Creación de la tabla USERS
+-- Microservicio: User Service
+-- Base de datos: Oracle
+-- ==========================================
+
+CREATE TABLE USERS (
+    ID RAW(16) NOT NULL,
+    FIRST_NAME VARCHAR2(100) NOT NULL,
+    LAST_NAME VARCHAR2(100) NOT NULL,
+    EMAIL VARCHAR2(150) NOT NULL,
+    PHONE VARCHAR2(20),
+    STATUS VARCHAR2(20) NOT NULL,
+    CREATED_AT TIMESTAMP WITH TIME ZONE NOT NULL,
+    UPDATED_AT TIMESTAMP WITH TIME ZONE NOT NULL,
+
+    CONSTRAINT PK_USERS PRIMARY KEY (ID),
+    CONSTRAINT UK_USERS_EMAIL UNIQUE (EMAIL),
+    CONSTRAINT CK_USERS_STATUS
+        CHECK (STATUS IN ('ACTIVE', 'INACTIVE'))
+);
+
+-- Índice para búsquedas por estado
+CREATE INDEX IDX_USERS_STATUS
+ON USERS (STATUS);
